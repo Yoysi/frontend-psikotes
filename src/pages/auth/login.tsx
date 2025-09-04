@@ -1,47 +1,45 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-function Login () {
-  const [username,setUsername] = useState("");
+function Login() {
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handlesubmit = (e: React.FormEvent)=> {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (username === "admin" && password === "123") {
-      navigate("admin/dashboard");
+      navigate("/admin/dashboard");
     } else {
-      alert ("username or password invalid");
+      alert("Username or password invalid");
     }
   };
 
   return (
-    <div style={{ display: "flex", justifyContent: "center", marginTop: "100px" }}>
-      <form onSubmit={handlesubmit} style={{ width: "300px" }}>
-        <h2>Login Admin</h2>
-        <div>
+    <div className="flex items-center justify-center min-h-screen bg-base-200">
+      <div className="card w-96 bg-base-100 shadow-xl p-6">
+        <h2 className="text-2xl font-bold text-center mb-4">Login Admin</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
             placeholder="Username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            style={{ width: "100%", marginBottom: "10px", padding: "8px" }}
+            className="input input-bordered w-full"
           />
-        </div>
-        <div>
           <input
             type="password"
             placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            style={{ width: "100%", marginBottom: "10px", padding: "8px" }}
+            className="input input-bordered w-full"
           />
-        </div>
-        <button type="submit" style={{ width: "100%", padding: "8px" }}>
-          Login
-        </button>
-      </form>
+          <button type="submit" className="btn btn-primary w-full">
+            Login
+          </button>
+        </form>
+      </div>
     </div>
   );
 }
