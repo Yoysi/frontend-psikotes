@@ -6,13 +6,27 @@ function Login() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (username === "admin" && password === "123") {
-      navigate("/admin/dashboard");
-    } else {
-      alert("Username or password invalid");
+    try {
+      const response = await fetch("http://localhost:3005/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email: username, password }),
+      });
+
+      if (response.ok) {
+        navigate("/admin/dashboard");
+      } else {
+        const message = await response.text();
+        alert(message || "Username or password invalid");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Something went wrong. Please try again.");
     }
   };
 
