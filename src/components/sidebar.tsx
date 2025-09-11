@@ -1,71 +1,148 @@
 import React, { useState } from "react";
+import { MdMenuOpen, MdOutlineDashboard } from "react-icons/md";
 import {
-  MdMenuOpen,
-  MdOutlineDashboard,
-} from "react-icons/md";
-import { IoHomeOutline, IoLogoBuffer, IoMenuOutline, IoPieChartSharp } from "react-icons/io5";
+  IoHomeOutline,
+  IoLogoBuffer,
+  IoMenuOutline,
+  IoPieChartSharp,
+} from "react-icons/io5";
 import { FaProductHunt, FaUserCircle } from "react-icons/fa";
 import { TbReportSearch } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
+import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
+import { motion, AnimatePresence } from "framer-motion";
 
-const menuItems = [
-  { icons: <IoHomeOutline size={24} />, label: "Home" },
-  { icons: <IoPieChartSharp size={24} />, label: "....." },
-  { icons: <MdOutlineDashboard size={24} />, label: "Dashboard" },
-  { icons: <CiSettings size={24} />, label: "Setting" },
-  { icons: <IoLogoBuffer size={24} />, label: "Log" },
-  { icons: <TbReportSearch size={24} />, label: "Report" },
-];
+const Sidebar = () => {
+  const [Open, Opened] = useState(true);
+  const [ActiveItems, setActiveItems] = useState("leads");
 
-export default function Sidebar() {
-  const [open, setOpen] = useState(false);
-  const [close,setClose] = useState(true);
+  const sidebarItems = [
+    {
+      id: "Home",
+      icons: <IoHomeOutline size={24} />,
+      title: "Add New",
+      bgColor: "bg-primary hover:bg-primary/90",
+      textColor: "text-primary-foreground",
+    },
+    {
+      id: "Home2",
+      icons: <IoPieChartSharp size={24} />,
+      title: "Add New",
+      bgColor: "bg-primary hover:bg-primary/90",
+      textColor: "text-primary-foreground",
+    },
+    {
+      id: "Home3",
+      icons: <MdOutlineDashboard size={24} />,
+      title: "Add New",
+      bgColor: "bg-primary hover:bg-primary/90",
+      textColor: "text-primary-foreground",
+    },
+    {
+      id: "Home4",
+      icons: <CiSettings size={24} />,
+      title: "Add New",
+      bgColor: "bg-primary hover:bg-primary/90",
+      textColor: "text-primary-foreground",
+    },
+    {
+      id: "Home5",
+      icons: <IoLogoBuffer size={24} />,
+      title: "Add New",
+      bgColor: "bg-primary hover:bg-primary/90",
+      textColor: "text-primary-foreground",
+    },
+    {
+      id: "Home6",
+      icons: <TbReportSearch size={24} />,
+      title: "Add New",
+      bgColor: "bg-primary hover:bg-primary/90",
+      textColor: "text-primary-foreground",
+    },
+  ];
 
   return (
-    <div className="fixed flex">
-      {/* Sidebar */}
-      <aside
-        className={`bg-white shadow-md h-screen transition-all duration-500 ${
-          open ? "w-64" : "w-16"
-        }`}
+    <div className="flex">
+      <motion.div
+        initial={{ width: Open ? 280 : 80 }}
+        animate={{ width: Open ? 280 : 80 }}
+        className="fixed top-0 left-0 flex-col h-screen bg-card  p-4 shadow-sm"
       >
-        <div className="flex justify-between items-center p-3">
-          <span className={`font-bold text-lg ${!open && "hidden"}`}>
-            Persada
-          </span>
-          <IoMenuOutline
-            size={28}
-            className={`cursor-pointer transition-transform ${
-              !open 
-            }`}
-            onClick={() => setOpen(!open)}
-          />
-        </div>
+        <button
+          onClick={() => Opened(!Open)}
+          className="absolute -right-3 top-6 bg-primary rounded-full p-1 text-primary-foreground shadow-sm"
+          aria-label={Open ? "Collapse sidebar" : "Expand sidebar"}
+        >
+          {Open ? (
+            <FiChevronLeft className="w-4 h-4" />
+          ) : (
+            <FiChevronRight className="w-4 h-4" />
+          )}
+        </button>
 
-        <ul className="menu p-2">
-          {menuItems.map((item, index) => (
-            <li key={index}>
-              <a className="flex gap-3 items-center">
-                {item.icons}
-                <span className={`${!open && "hidden"} transition-all`}>
-                  {item.label}
-                </span>
-              </a>
-            </li>
+        <div className="space-y-2"> 
+          {sidebarItems.map((Items) => (
+            <motion.button
+              key={Items.id}
+              onClick={() => setActiveItems(Items.id)}
+              className={`
+                w-full flex items-center gap-3 p-3 rounded-lg transition-colors
+                ${
+                  ActiveItems === Items.id
+                    ? Items.bgColor
+                    : "hover:bg-secondary/50"
+                }
+                ${
+                  ActiveItems === Items.id ? Items.textColor : "text-foreground"
+                }
+              `}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+            >
+              {Items.icons}
+              <AnimatePresence>
+                {Open && (
+                  <motion.span
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 10 }}
+                    className="font-body text-body tracking-wide whitespace-nowrap"
+                  >
+                    {Items.title}
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </motion.button>
           ))}
-        </ul>
-
-        {/* Footer user info */}
-        <div className="p-3 flex items-center gap-2">
-          <FaUserCircle size={28} />
-          <div className={`${!open && "hidden"} leading-5`}>
-            <p className="font-medium">Saheb</p>
-            <span className="text-xs">saheb@gmail.com</span>
-          </div>
         </div>
-      </aside>
 
-      
+        {Open && (
+          <div className="mt-auto pt-4 border-t border-border">
+            <div className="flex items-center gap-3 p-3">
+              <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
+                <span className="text-secondary-foreground font-semibold">
+                  JD
+                </span>
+              </div>
+              <div className="flex-1">
+                <p className="font-semibold text-foreground">John Doe</p>
+                <p className="text-sm text-accent-foreground">Administrator</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </motion.div>
+
+      <motion.div
+  animate={{ marginLeft: Open ? 280 : 80 }}
+  className="flex-1 "
+>
+  <h1 className="text-heading font-heading text-foreground">
+    {sidebarItems.find((Items) => Items.id === ActiveItems)?.title}
+  </h1>
+</motion.div>
     </div>
   );
-}
+};
+
+export default Sidebar;
