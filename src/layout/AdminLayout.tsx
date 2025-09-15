@@ -4,16 +4,21 @@ import { Outlet } from "react-router-dom";
 import { useState } from "react";
 
 const AdminLayout = () => {
-  const [open, setOpen] = useState(false); 
+  const [open, setOpen] = useState(true); 
 
   return (
     <div className="flex min-h-screen">
-      <Navbar />
-      <Sidebar/>  
-      <div
-        className={`flex flex-col flex-1 transition-all duration-500`}
+      {/* Sidebar */}
+      <Sidebar open={open} setOpen={setOpen} />
+
+      {/* Konten */}
+      <div className={`flex flex-col flex-1 transition-all duration-300 
+        ${open ? "ml-[280px]" : "ml-[80px]"}`}>
         
-      >
+        {/* Navbar */}
+        <Navbar open={open} setOpen={setOpen} />
+
+        {/* Main */}
         <main className="flex-1 p-6 mt-16 bg-slate-50">
           <div className="breadcrumbs text-sm">
             <ul>
@@ -25,6 +30,7 @@ const AdminLayout = () => {
           <Outlet />
         </main>
 
+        {/* Footer */}
         <footer className="footer sm:footer-horizontal justify-center bg-slate-50 p-4">
           <aside className="flex grid-flow-col text-black">
             <p>Copyright © {new Date().getFullYear()} - All right reserved</p>

@@ -1,15 +1,17 @@
 import { motion } from "framer-motion";
 import React, { useState } from "react";
 
-const Navbar = () => {
-  const [Open, setOpen] = useState(true);
+interface NavbarProps {
+  open: boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
+const Navbar: React.FC<NavbarProps> = ({ open, setOpen }) => {
   return (
     <motion.div
-      className="navbar fixed top-0 right-0 bg-white outline-1 outline-gray-100 shadow-sm"
-      animate={{ marginLeft: Open ? 280 : 80 }}
-      transition={{ type: "tween", duration: 0.3 }}
+      className="navbar fixed top-0 right-0 left-0 bg-white outline-1 outline-gray-100 shadow-sm z-40"
     >
+
       {/* Start */}
       <div className="navbar-start">
         <img

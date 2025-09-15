@@ -2,7 +2,7 @@ import AdminLayout from "@/layout/AdminLayout";
 
 const Dashboard = () => {
   return (
-    <div>
+    <div className="z-40">
       <h1 className="text-2xl font-bold">Dashboard</h1>
       <p>Selamat </p>
 

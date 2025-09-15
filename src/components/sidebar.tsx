@@ -1,114 +1,107 @@
 import React, { useState } from "react";
-import { MdMenuOpen, MdOutlineDashboard } from "react-icons/md";
-import {
-  IoHomeOutline,
-  IoLogoBuffer,
-  IoMenuOutline,
-  IoPieChartSharp,
-} from "react-icons/io5";
-import { FaProductHunt, FaUserCircle } from "react-icons/fa";
+import { MdOutlineDashboard } from "react-icons/md";
+import { IoHomeOutline, IoLogoBuffer, IoPieChartSharp } from "react-icons/io5";
+import { FaUserCircle } from "react-icons/fa";
 import { TbReportSearch } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
 
 const Sidebar = () => {
-  const [Open, Opened] = useState(true);
-  const [ActiveItems, setActiveItems] = useState("leads");
+  const [open, setOpen] = useState(true);
+  const [activeItem, setActiveItem] = useState("Home");
 
   const sidebarItems = [
     {
       id: "Home",
       icons: <IoHomeOutline size={24} />,
-      title: "Add New",
+      title: "Home",
       bgColor: "bg-primary hover:bg-primary/90",
       textColor: "text-primary-foreground",
     },
     {
-      id: "Home2",
+      id: "Chart",
       icons: <IoPieChartSharp size={24} />,
-      title: "Add New",
+      title: "Analytics",
       bgColor: "bg-primary hover:bg-primary/90",
       textColor: "text-primary-foreground",
     },
     {
-      id: "Home3",
+      id: "Dashboard",
       icons: <MdOutlineDashboard size={24} />,
-      title: "Add New",
+      title: "Dashboard",
       bgColor: "bg-primary hover:bg-primary/90",
       textColor: "text-primary-foreground",
     },
     {
-      id: "Home4",
+      id: "Settings",
       icons: <CiSettings size={24} />,
-      title: "Add New",
+      title: "Settings",
       bgColor: "bg-primary hover:bg-primary/90",
       textColor: "text-primary-foreground",
     },
     {
-      id: "Home5",
+      id: "Buffer",
       icons: <IoLogoBuffer size={24} />,
-      title: "Add New",
+      title: "Buffer",
       bgColor: "bg-primary hover:bg-primary/90",
       textColor: "text-primary-foreground",
     },
     {
-      id: "Home6",
+      id: "Reports",
       icons: <TbReportSearch size={24} />,
-      title: "Add New",
+      title: "Reports",
       bgColor: "bg-primary hover:bg-primary/90",
       textColor: "text-primary-foreground",
     },
   ];
 
   return (
-    <div className="flex">
+    <div className="z-50 flex">
+      {/* Sidebar */}
       <motion.div
-        initial={{ width: Open ? 280 : 80 }}
-        animate={{ width: Open ? 280 : 80 }}
-        className="fixed top-0 left-0 flex-col h-screen bg-card  p-4 shadow-sm"
+        initial={{ width: open ? 280 : 80 }}
+        animate={{ width: open ? 280 : 80 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="fixed top-0 left-0 flex-col h-screen bg-card p-4 shadow-sm"
       >
+        {/* Toggle Button */}
         <button
-          onClick={() => Opened(!Open)}
+          onClick={() => setOpen(!open)}
           className="absolute -right-3 top-6 bg-primary rounded-full p-1 text-primary-foreground shadow-sm"
-          aria-label={Open ? "Collapse sidebar" : "Expand sidebar"}
+          aria-label={open ? "Collapse sidebar" : "Expand sidebar"}
         >
-          {Open ? (
+          {open ? (
             <FiChevronLeft className="w-4 h-4" />
           ) : (
             <FiChevronRight className="w-4 h-4" />
           )}
         </button>
 
-        <div className="space-y-2"> 
-          {sidebarItems.map((Items) => (
+        {/* Menu Items */}
+        <div className="space-y-2 mt-10">
+          {sidebarItems.map((item) => (
             <motion.button
-              key={Items.id}
-              onClick={() => setActiveItems(Items.id)}
-              className={`
-                w-full flex items-center gap-3 p-3 rounded-lg transition-colors
-                ${
-                  ActiveItems === Items.id
-                    ? Items.bgColor
-                    : "hover:bg-secondary/50"
-                }
-                ${
-                  ActiveItems === Items.id ? Items.textColor : "text-foreground"
-                }
-              `}
+              key={item.id}
+              onClick={() => setActiveItem(item.id)}
+              className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
+                activeItem === item.id
+                  ? `${item.bgColor} ${item.textColor}`
+                  : "hover:bg-secondary/50 text-foreground"
+              }`}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
             >
-              {Items.icons}
+              {item.icons}
               <AnimatePresence>
-                {Open && (
+                {open && (
                   <motion.span
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
                     className="font-body text-body tracking-wide whitespace-nowrap"
                   >
-                    {Items.title}
+                    {item.title}
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -116,13 +109,12 @@ const Sidebar = () => {
           ))}
         </div>
 
-        {Open && (
+        {/* User Info */}
+        {open && (
           <div className="mt-auto pt-4 border-t border-border">
             <div className="flex items-center gap-3 p-3">
               <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
-                <span className="text-secondary-foreground font-semibold">
-                  JD
-                </span>
+                <span className="text-secondary-foreground font-semibold">JD</span>
               </div>
               <div className="flex-1">
                 <p className="font-semibold text-foreground">John Doe</p>
@@ -133,14 +125,14 @@ const Sidebar = () => {
         )}
       </motion.div>
 
+      {/* Main Content Wrapper (geser sesuai sidebar) */}
       <motion.div
-  animate={{ marginLeft: Open ? 280 : 80 }}
-  className="flex-1 "
->
-  <h1 className="text-heading font-heading text-foreground">
-    {sidebarItems.find((Items) => Items.id === ActiveItems)?.title}
-  </h1>
-</motion.div>
+        animate={{ marginLeft: open ? 280 : 80 }}
+        transition={{ duration: 0.3, ease: "easeInOut" }}
+        className="flex-1"
+      >
+        {/* Taruh konten utama di sini */}
+      </motion.div>
     </div>
   );
 };
