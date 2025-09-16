@@ -1,69 +1,76 @@
 import React, { useState } from "react";
 import { MdOutlineDashboard } from "react-icons/md";
-import { IoHomeOutline, IoLogoBuffer, IoPieChartSharp } from "react-icons/io5";
+import {
+  IoAlbumsOutline,
+  IoApps,
+  IoAppsOutline,
+  IoClipboardOutline,
+  IoHomeOutline,
+  IoLogoBuffer,
+  IoPeopleOutline,
+  IoPieChartSharp,
+} from "react-icons/io5";
 import { FaUserCircle } from "react-icons/fa";
 import { TbReportSearch } from "react-icons/tb";
 import { CiSettings } from "react-icons/ci";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
+import { IoIosApps } from "react-icons/io";
 
-const Sidebar = () => {
-  const [open, setOpen] = useState(true);
-  const [activeItem, setActiveItem] = useState("Home");
+interface SidebarProps {
+  open: Boolean;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
+  const [activeItem, setActiveItem] = useState<string>("Home");
 
   const sidebarItems = [
     {
       id: "Home",
-      icons: <IoHomeOutline size={24} />,
+      icons: <IoAppsOutline size={24} />,
       title: "Home",
       bgColor: "bg-primary hover:bg-primary/90",
       textColor: "text-primary-foreground",
     },
     {
-      id: "Chart",
-      icons: <IoPieChartSharp size={24} />,
-      title: "Analytics",
+      id: "User",
+      icons: <IoPeopleOutline size={24} />,
+      title: "User",
       bgColor: "bg-primary hover:bg-primary/90",
       textColor: "text-primary-foreground",
     },
     {
       id: "Dashboard",
-      icons: <MdOutlineDashboard size={24} />,
+      icons: <IoAlbumsOutline size={24} />,
       title: "Dashboard",
       bgColor: "bg-primary hover:bg-primary/90",
       textColor: "text-primary-foreground",
     },
     {
-      id: "Settings",
-      icons: <CiSettings size={24} />,
-      title: "Settings",
-      bgColor: "bg-primary hover:bg-primary/90",
-      textColor: "text-primary-foreground",
-    },
-    {
-      id: "Buffer",
+      id: "Modul",
       icons: <IoLogoBuffer size={24} />,
-      title: "Buffer",
+      title: "Modul Soal",
       bgColor: "bg-primary hover:bg-primary/90",
       textColor: "text-primary-foreground",
     },
     {
       id: "Reports",
       icons: <TbReportSearch size={24} />,
-      title: "Reports",
+      title: "Survey",
       bgColor: "bg-primary hover:bg-primary/90",
       textColor: "text-primary-foreground",
     },
   ];
 
   return (
-    <div className="z-50 flex">
+    <div className="flex z-50 ">
       {/* Sidebar */}
       <motion.div
-        initial={{ width: open ? 280 : 80 }}
-        animate={{ width: open ? 280 : 80 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-        className="fixed top-0 left-0 flex-col h-screen bg-card p-4 shadow-sm"
+        initial={{ width: open ? 250 : 30 }}
+        animate={{ width: open ? 250 : 80 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
+        className="sticky top-16 h-[calc(100vh-5rem)] left-0 flex-col bg-card p-4 shadow-sm"
       >
         {/* Toggle Button */}
         <button
@@ -79,15 +86,15 @@ const Sidebar = () => {
         </button>
 
         {/* Menu Items */}
-        <div className="space-y-2 mt-10">
+        <div className="space-y-4 mt-10">
           {sidebarItems.map((item) => (
             <motion.button
               key={item.id}
               onClick={() => setActiveItem(item.id)}
-              className={`w-full flex items-center gap-3 p-3 rounded-lg transition-colors ${
+              className={`w-full flex items-center gap-3 p-3 rounded-sm transition-colors ${
                 activeItem === item.id
                   ? `${item.bgColor} ${item.textColor}`
-                  : "hover:bg-secondary/50 text-foreground"
+                  : "hover:bg-gray-200 text-foreground"
               }`}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -111,15 +118,22 @@ const Sidebar = () => {
 
         {/* User Info */}
         {open && (
-          <div className="mt-auto pt-4 border-t border-border">
-            <div className="flex items-center gap-3 p-3">
-              <div className="w-10 h-10 rounded-full bg-secondary flex items-center justify-center">
-                <span className="text-secondary-foreground font-semibold">JD</span>
+          <div className="py-2 px-4 mt-30 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
+            <div className="avatar avatar-placeholder">
+              <div className="bg-neutral text-neutral-content w-12 rounded-full">
+                <span className="text-3xl">D</span>
               </div>
-              <div className="flex-1">
-                <p className="font-semibold text-foreground">John Doe</p>
-                <p className="text-sm text-accent-foreground">Administrator</p>
+            </div>
+            <div className="text-center space-y-2 sm:text-left">
+              <div className="space-y-0.5">
+                <p className="text-lg text-black font-semibold">
+                  Erin Lindford
+                </p>
+                <p className="text-slate-500 font-medium">Product Engineer</p>
               </div>
+              <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
+                Message
+              </button>
             </div>
           </div>
         )}
@@ -127,7 +141,7 @@ const Sidebar = () => {
 
       {/* Main Content Wrapper (geser sesuai sidebar) */}
       <motion.div
-        animate={{ marginLeft: open ? 280 : 80 }}
+        animate={{ marginLeft: open ? 0 : 0 }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className="flex-1"
       >

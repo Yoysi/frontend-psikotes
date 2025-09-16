@@ -12,8 +12,7 @@ const AdminLayout = () => {
       <Sidebar open={open} setOpen={setOpen} />
 
       {/* Konten */}
-      <div className={`flex flex-col flex-1 transition-all duration-300 
-        ${open ? "ml-[280px]" : "ml-[80px]"}`}>
+      <div className={`flex flex-col flex-1 transition-all duration-300 `}>
         
         {/* Navbar */}
         <Navbar open={open} setOpen={setOpen} />
