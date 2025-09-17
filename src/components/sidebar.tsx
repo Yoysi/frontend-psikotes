@@ -1,24 +1,11 @@
 import React, { useState } from "react";
-import { MdOutlineDashboard } from "react-icons/md";
-import {
-  IoAlbumsOutline,
-  IoApps,
-  IoAppsOutline,
-  IoClipboardOutline,
-  IoHomeOutline,
-  IoLogoBuffer,
-  IoPeopleOutline,
-  IoPieChartSharp,
-} from "react-icons/io5";
-import { FaUserCircle } from "react-icons/fa";
+import { IoAlbumsOutline, IoAppsOutline, IoLogoBuffer, IoPeopleOutline } from "react-icons/io5";
 import { TbReportSearch } from "react-icons/tb";
-import { CiSettings } from "react-icons/ci";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
-import { IoIosApps } from "react-icons/io";
 
 interface SidebarProps {
-  open: Boolean;
+  open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
@@ -26,87 +13,52 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
   const [activeItem, setActiveItem] = useState<string>("Home");
 
   const sidebarItems = [
-    {
-      id: "Home",
-      icons: <IoAppsOutline size={24} />,
-      title: "Home",
-      bgColor: "bg-primary hover:bg-primary/90",
-      textColor: "text-primary-foreground",
-    },
-    {
-      id: "User",
-      icons: <IoPeopleOutline size={24} />,
-      title: "User",
-      bgColor: "bg-primary hover:bg-primary/90",
-      textColor: "text-primary-foreground",
-    },
-    {
-      id: "Dashboard",
-      icons: <IoAlbumsOutline size={24} />,
-      title: "Dashboard",
-      bgColor: "bg-primary hover:bg-primary/90",
-      textColor: "text-primary-foreground",
-    },
-    {
-      id: "Modul",
-      icons: <IoLogoBuffer size={24} />,
-      title: "Modul Soal",
-      bgColor: "bg-primary hover:bg-primary/90",
-      textColor: "text-primary-foreground",
-    },
-    {
-      id: "Reports",
-      icons: <TbReportSearch size={24} />,
-      title: "Survey",
-      bgColor: "bg-primary hover:bg-primary/90",
-      textColor: "text-primary-foreground",
-    },
+    { id: "Home", icons: <IoAppsOutline size={22} />, title: "Home" },
+    { id: "User", icons: <IoPeopleOutline size={22} />, title: "User" },
+    { id: "Dashboard", icons: <IoAlbumsOutline size={22} />, title: "Dashboard" },
+    { id: "Modul", icons: <IoLogoBuffer size={22} />, title: "Modul Soal" },
+    { id: "Reports", icons: <TbReportSearch size={22} />, title: "Survey" },
   ];
 
   return (
-    <div className="flex z-50 ">
+    <div className="flex z-50">
       {/* Sidebar */}
       <motion.div
-        initial={{ width: open ? 250 : 30 }}
         animate={{ width: open ? 250 : 80 }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-        className="sticky top-16 h-[calc(100vh-5rem)] left-0 flex-col bg-card p-4 shadow-sm"
+        transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }} // smooth cubic-bezier
+        className="sticky top-16 h-[calc(100vh-5rem)] left-0 flex-col bg-card p-4 shadow-sm relative"
       >
         {/* Toggle Button */}
         <button
           onClick={() => setOpen(!open)}
           className="absolute -right-3 top-6 bg-primary rounded-full p-1 text-primary-foreground shadow-sm"
-          aria-label={open ? "Collapse sidebar" : "Expand sidebar"}
         >
-          {open ? (
-            <FiChevronLeft className="w-4 h-4" />
-          ) : (
-            <FiChevronRight className="w-4 h-4" />
-          )}
+          {open ? <FiChevronLeft className="w-4 h-4" /> : <FiChevronRight className="w-4 h-4" />}
         </button>
 
         {/* Menu Items */}
-        <div className="space-y-4 mt-10">
+        <div className="space-y-3 mt-10">
           {sidebarItems.map((item) => (
             <motion.button
               key={item.id}
               onClick={() => setActiveItem(item.id)}
-              className={`w-full flex items-center gap-3 p-3 rounded-sm transition-colors ${
+              className={`w-full flex items-center gap-3 p-3 rounded-md transition-colors ${
                 activeItem === item.id
-                  ? `${item.bgColor} ${item.textColor}`
+                  ? "bg-primary text-primary-foreground"
                   : "hover:bg-gray-200 text-foreground"
               }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: 1.03 }}
+              whileTap={{ scale: 0.97 }}
             >
               {item.icons}
               <AnimatePresence>
                 {open && (
                   <motion.span
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 10 }}
-                    className="font-body text-body tracking-wide whitespace-nowrap"
+                    initial={{ opacity: 0, x: -8 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    exit={{ opacity: 0, x: -8 }}
+                    transition={{ duration: 0.1 }}
+                    className="text-sm font-medium whitespace-nowrap"
                   >
                     {item.title}
                   </motion.span>
@@ -117,35 +69,34 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
         </div>
 
         {/* User Info */}
-        {open && (
-          <div className="py-2 px-4 mt-30 max-w-sm mx-auto bg-white rounded-xl shadow-lg space-y-2 sm:py-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-6">
-            <div className="avatar avatar-placeholder">
-              <div className="bg-neutral text-neutral-content w-12 rounded-full">
-                <span className="text-3xl">D</span>
+        <AnimatePresence>
+          {open && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="py-3 px-4 mt-45 max-w-sm mx-auto bg-white rounded-xl shadow-lg flex items-center gap-4"
+            >
+              <div className="bg-neutral text-neutral-content w-12 h-12 rounded-full flex items-center justify-center">
+                <span className="text-xl font-bold">D</span>
               </div>
-            </div>
-            <div className="text-center space-y-2 sm:text-left">
-              <div className="space-y-0.5">
-                <p className="text-lg text-black font-semibold">
-                  Erin Lindford
-                </p>
-                <p className="text-slate-500 font-medium">Product Engineer</p>
+              <div>
+                <p className="text-black font-semibold">Erin Lindford</p>
+                <p className="text-slate-500 text-sm">Product Engineer</p>
               </div>
-              <button className="px-4 py-1 text-sm text-purple-600 font-semibold rounded-full border border-purple-200 hover:text-white hover:bg-purple-600 hover:border-transparent focus:outline-none focus:ring-2 focus:ring-purple-600 focus:ring-offset-2">
-                Message
-              </button>
-            </div>
-          </div>
-        )}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
 
-      {/* Main Content Wrapper (geser sesuai sidebar) */}
+      {/* Main Content */}
       <motion.div
         animate={{ marginLeft: open ? 0 : 0 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
+        transition={{ duration: 0.4 }}
         className="flex-1"
       >
-        {/* Taruh konten utama di sini */}
+        {/* Konten utama */}
       </motion.div>
     </div>
   );

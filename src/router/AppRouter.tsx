@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Login from "@/pages/auth/login";
-import AdminLayout from "@/layout/AdminLayout"; // biasanya plural "layouts"
+import AdminLayout from "@/layout/AdminLayout";
+import SuperAdminLayout from "@/layout/SuperAdminLayout";
 import Dashboard from "@/pages/admin/dashboard";
 
 function AppRouter() {
@@ -13,6 +14,9 @@ function AppRouter() {
         {/* Admin layout + dashboard */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+        <Route path="superadmin" element={<SuperAdminLayout/>}>
+          <Route></Route>
         </Route>
       </Routes>
     </Router>
