@@ -26,7 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
       <motion.div
         animate={{ width: open ? 250 : 80 }}
         transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }} // smooth cubic-bezier
-        className="sticky top-16 h-[calc(100vh-5rem)] left-0 flex-col bg-card p-4 shadow-sm relative"
+        className="sticky top-16 h-[calc(100vh-5rem)] left-0 flex-col bg-card p-4 shadow-sm"
       >
         {/* Toggle Button */}
         <button
