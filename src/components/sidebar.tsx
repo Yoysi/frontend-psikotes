@@ -3,6 +3,7 @@ import { IoAlbumsOutline, IoAppsOutline, IoLogoBuffer, IoPeopleOutline } from "r
 import { TbReportSearch } from "react-icons/tb";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 interface SidebarProps {
   open: boolean;
@@ -13,7 +14,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
   const [activeItem, setActiveItem] = useState<string>("Home");
 
   const sidebarItems = [
-    { id: "Home", icons: <IoAppsOutline size={22} />, title: "Home" },
+    { id: "Home", icons: <IoAppsOutline size={22} />, title: "Home",},
     { id: "User", icons: <IoPeopleOutline size={22} />, title: "User" },
     { id: "Dashboard", icons: <IoAlbumsOutline size={22} />, title: "Dashboard" },
     { id: "Modul", icons: <IoLogoBuffer size={22} />, title: "Modul Soal" },

@@ -8,32 +8,32 @@ const SuperDashboard = () => {
       <h1 className="text-2xl font-bold">Dashboard</h1>
       <p>Selamat </p>
 
-      <div className="flex flex-1 min-w-100 max-w-280 mt-4 gap-7">
-        <div className="card card-border bg-base-100 h-30">
+      <div className="flex mt-4 gap-7">
+        <div className="card card-border flex-1 bg-base-100 min-w-40 max-w-65 h-30">
           <div className="card-body">
             <h2 className="card-title">Card Title</h2>
             <p>A card </p>
           </div>
         </div>
-        <div className="card card-border bg-base-100 h-30">
+        <div className="card card-border flex-1 bg-base-100 min-w-40 max-w-65 h-30">
           <div className="card-body">
             <h2 className="card-title">Card Title</h2>
             <p>A card </p>
           </div>
         </div>
-        <div className="card card-border bg-base-100 h-30">
+        <div className="card card-border flex-1 bg-base-100 min-w-40 max-w-65 h-30">
           <div className="card-body">
             <h2 className="card-title">Card Title</h2>
             <p>A card </p>
           </div>
         </div>
-        <div className="card card-border bg-base-100 h-30">
+        <div className="card card-border flex-1 bg-base-100 min-w-40 max-w-65 h-30">
           <div className="card-body">
             <h2 className="card-title">Card Title</h2>
             <p>A card </p>
           </div>
         </div>
-        <div className="card card-border bg-base-100 h-30">
+        <div className="card card-border flex-1 bg-base-100 min-w-40 max-w-65 h-30">
           <div className="card-body">
             <h2 className="card-title">Card Title</h2>
             <p>A card </p>
