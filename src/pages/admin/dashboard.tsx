@@ -9,25 +9,31 @@ const Dashboard = () => {
       <p>Selamat </p>
 
       <div className="flex mt-4 gap-7">
-        <div className="card card-border bg-base-100 w-65 h-30">
+        <div className="card card-border flex-1 bg-base-100 min-w-40 max-w-65 h-30">
           <div className="card-body">
             <h2 className="card-title">Card Title</h2>
             <p>A card </p>
           </div>
         </div>
-        <div className="card card-border bg-base-100 w-65 h-30">
+        <div className="card card-border flex-1 bg-base-100 min-w-40 max-w-65 h-30">
           <div className="card-body">
             <h2 className="card-title">Card Title</h2>
             <p>A card </p>
           </div>
         </div>
-        <div className="card card-border bg-base-100 w-65 h-30">
+        <div className="card card-border flex-1 bg-base-100 min-w-40 max-w-65 h-30">
           <div className="card-body">
             <h2 className="card-title">Card Title</h2>
             <p>A card </p>
           </div>
         </div>
-        <div className="card card-border bg-base-100 w-65 h-30">
+        <div className="card card-border flex-1 bg-base-100 min-w-40 max-w-65 h-30">
+          <div className="card-body">
+            <h2 className="card-title">Card Title</h2>
+            <p>A card </p>
+          </div>
+        </div>
+        <div className="card card-border flex-1 bg-base-100 min-w-40 max-w-65 h-30">
           <div className="card-body">
             <h2 className="card-title">Card Title</h2>
             <p>A card </p>
@@ -41,7 +47,7 @@ const Dashboard = () => {
             <ChartWrapper />
           </div>
         </div>
-        <div className="card card-border bg-base-100 flex-1 h-100">
+        <div className="card card-border bg-base-100 flex-1 min-w-50 max-w-150 h-100">
           <div className="card-body">
             <div className="overflow-x-auto">
               <table className="table">

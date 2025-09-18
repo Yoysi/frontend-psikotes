@@ -1,8 +1,11 @@
 import React, { useState } from "react";
+import { NavLink } from "react-router-dom";
 import { IoAlbumsOutline, IoAppsOutline, IoLogoBuffer, IoPeopleOutline } from "react-icons/io5";
 import { TbReportSearch } from "react-icons/tb";
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { path } from "framer-motion/client";
 
 interface SidebarProps {
   open: boolean;
@@ -13,11 +16,13 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
   const [activeItem, setActiveItem] = useState<string>("Home");
 
   const sidebarItems = [
-    { id: "Home", icons: <IoAppsOutline size={22} />, title: "Home" },
-    { id: "User", icons: <IoPeopleOutline size={22} />, title: "User" },
-    { id: "Dashboard", icons: <IoAlbumsOutline size={22} />, title: "Dashboard" },
-    { id: "Modul", icons: <IoLogoBuffer size={22} />, title: "Modul Soal" },
-    { id: "Reports", icons: <TbReportSearch size={22} />, title: "Survey" },
+
+    { id: "Home", icons: <IoAppsOutline size={22} />, title: "Home", path: ""},
+    { id: "User", icons: <IoPeopleOutline size={22} />, title: "User", path: "/super-admin/super-user"},
+    { id: "Dashboard", icons: <IoAlbumsOutline size={22} />, title: "Dashboard", path: "/super-admin/super-dashboard" },
+    { id: "Modul", icons: <IoLogoBuffer size={22} />, title: "Modul Soal", path: "/super-admin/modul" },
+    { id: "Reports", icons: <TbReportSearch size={22} />, title: "Survey", path: "" },
+
   ];
 
   return (
@@ -39,6 +44,15 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
         {/* Menu Items */}
         <div className="space-y-3 mt-10">
           {sidebarItems.map((item) => (
+
+            <NavLink
+              key={item.id}
+              to={item.path}
+              className={({ isActive }) => (
+                "block w-full"
+              )
+            }
+            >
             <motion.button
               key={item.id}
               onClick={() => setActiveItem(item.id)}
@@ -65,6 +79,7 @@ const Sidebar: React.FC<SidebarProps> = ({ open, setOpen }) => {
                 )}
               </AnimatePresence>
             </motion.button>
+            </NavLink>
           ))}
         </div>
 

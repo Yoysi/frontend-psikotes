@@ -3,7 +3,9 @@ import Login from "@/pages/auth/login";
 import AdminLayout from "@/layout/AdminLayout";
 import SuperAdminLayout from "@/layout/SuperAdminLayout";
 import Dashboard from "@/pages/admin/dashboard";
-import SuperDashboard from "@/pages/super-admin/Superdashboard";
+import SuperDashboard from "@/pages/super-admin/Super-dashboard";
+import SuperUser from "@/pages/super-admin/Super-user";
+
 
 function AppRouter() {
   return (
@@ -15,9 +17,12 @@ function AppRouter() {
         {/* Admin layout + dashboard */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route path="dashboard" element={<Dashboard />} />
+          
         </Route>
-        <Route path="/superadmin" element={<SuperAdminLayout/>}>
-          <Route path="Superdashboard" element={<SuperDashboard/>}/>
+        <Route path="/super-admin" element={<SuperAdminLayout/>}>
+          <Route path="Super-dashboard" element={<SuperDashboard/>}/>
+          <Route path="Super-user" element={<SuperUser/>}/>
+          
         </Route>
       </Routes>
     </Router>
